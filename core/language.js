@@ -5,6 +5,20 @@
  */
 define([], function() {
 
+    var TYPES = {
+        'undefined'        : 'undefined',
+        'number'           : 'number',
+        'boolean'          : 'boolean',
+        'string'           : 'string',
+        '[object Function]': 'function',
+        '[object RegExp]'  : 'regexp',
+        '[object Array]'   : 'array',
+        '[object Date]'    : 'date',
+        '[object Error]'   : 'error'
+    };
+
+    var TOSTRING     = Object.prototype.toString;
+
     /*
     F -> the First store
     F -> Fast
@@ -126,8 +140,15 @@ define([], function() {
                 delete obj[delter];
 
             };
+        },
+
+
+        type: function (o) {
+            return TYPES[typeof o] || TYPES[TOSTRING.call(o)] || (o ? 'object' : 'null');
         }
     };
+
+
 
     return Language;
 
