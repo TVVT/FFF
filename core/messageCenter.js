@@ -1,7 +1,7 @@
 /**
  * MessageCenter
  */
-define(['language'], function (L) {
+define(['language', 'eventEmitter'], function (L, event) {
 
     L.messageCenter = {
         __events__: {},
@@ -13,11 +13,11 @@ define(['language'], function (L) {
          * @returns {L.messageCenter}
          */
         on: function (obj, evt, callback) {
-            this.__events__[evt] || (this.__events__[evt] = {});
-            this.__events__[evt][obj.getId()] = {
+            this.__events__[evt] || (this.__events__[evt] = []);
+            this.__events__[evt].push({
                 fn: callback,
                 scope: obj
-            };
+            });
             return this;
         },
         /**
@@ -29,8 +29,8 @@ define(['language'], function (L) {
         fire: function (evt, data) {
             if (this.__events__.hasOwnProperty(evt)) {
                 var ev = this.__events__[evt];
-                Object.keys(ev).forEach(function (o) {
-                    ev[o].fn.call(this, ev[o].scope, data);
+                ev.forEach(function (o) {
+                    o.fn.call(this, o.scope, data);
                 });
             }
             return this;
@@ -38,11 +38,18 @@ define(['language'], function (L) {
         /**
          * 注销事件
          * @param evt   事件名
+         * @param exclude   需要排除的对象
          * @returns {L.messageCenter}
          */
-        off: function (evt) {
+        off: function (evt, exclude) {
             if (this.__events__.hasOwnProperty(evt)) {
-                delete this.__events__[evt];
+                var ev = this.__events__[evt];
+                ev.forEach(function (o, index) {
+                    if (o.scope == exclude) {
+                        ev.splice(index, 1);
+                    }
+                });
+
             }
             return this;
         }
