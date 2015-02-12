@@ -24,7 +24,7 @@ define(['language'], function(language) {
                 args = [args];
             }
             evtVal.forEach(function(o){
-                o.handler.apply(evtVal.scope, args);
+                o.handler.apply(o.scope, args);
             })
         }
         return this;

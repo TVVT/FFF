@@ -74,7 +74,7 @@ define(['language'], function(language) {
             var cacheVal = attrs[key].value || '';
 
             if (attrs[key].hasOwnProperty('valueFn')) {
-                cacheVal = attrs[key].valueFn();
+                cacheVal = attrs[key].valueFn.call(obj);
             };
 
             defineProperty(obj, key, {
