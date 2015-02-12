@@ -1,13 +1,18 @@
 define(['base','language'],function(Base,L){
 
-	var F;
+	var VERSION = 0.1;
 
 	function FFF(){
+		this.version = VERSION;
 		Base.apply(this,arguments);
 	}
 
 	L.core.extend(FFF,Base);
 
-	window.FFF = F ? F : new FFF();
+	var F = new FFF();
+
+	window.FFF = F;
+
+	return F
 
 })
