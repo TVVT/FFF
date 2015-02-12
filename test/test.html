@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
     <style>
-        #widgetA {
-            width: 100px;
-            height: 100px;
-            background-color: #333333;
-        }
-
-        #widgetB {
-            width: 100px;
-            height: 100px;
-            background-color: #842b18;
-        }
-
-        #widgetC {
-            width: 100px;
-            height: 100px;
-            background-color: #5fba57;
-        }
+    #widgetA {
+        width: 100px;
+        height: 100px;
+        background-color: #333333;
+    }
+    #widgetB {
+        width: 100px;
+        height: 100px;
+        background-color: #842b18;
+    }
+    #widgetC {
+        width: 100px;
+        height: 100px;
+        background-color: #5fba57;
+    }
     </style>
 </head>
+
 <body>
-<script src="../lib/require.js"></script>
+    <script src="../lib/require.js"></script>
 
-<!--widget a-->
-<div id="widgetA"></div>
-
-
-<div id="widgetB"></div>
+    <!--widget a-->
+    <div id="widgetA"></div>
 
 
-<div id="widgetC"></div>
+    <div id="widgetB"></div>
 
-<script>
 
+    <div id="widgetC"></div>
+
+    <script>
     require.config({
         paths: {
             base: '../core/base',
@@ -51,33 +50,51 @@
         }
     });
 
-    require(['slider','FFF'], function (Slider) {
+    require(['slider', 'FFF'], function(Slider) {
 
         var slider1 = new Slider();
 
-      
-        slider1.render({container:$('#widgetB'),type:'after'});
+        slider1.render({
+            container: $('#widgetB'),
+            type: 'after'
+        });
 
-        slider1.on('nameChange',function(obj){
+        slider1.on('nameChange', function(obj) {
             console.log(obj)
         })
 
+
         slider1.setName('xxx');
         console.log(slider1.getName('xxx'));
+        // require(['slider', 'messageCenter'], function (Slider, mc) {
+        //     var slider1 = new Slider({
+        //         name: '我是房子',
+        //         id: 'widgetA'
+        //     });
 
+        //     var slider2 = new Slider({
+        //         name: '我是消防员',
+        //         id: 'widgetB'
+        //     });
+        // var slider3 = new Slider({
+        //     name: '我是救护车',
+        //     id: 'widgetC'
+        // });
+        // slider1.on('idChange', function (obj) {
+        //     console.log('id的改变:' + obj.value)
+        // });
 
-        // FFF.on('hasData',function(data){
-        //     console.log(this.getName())
-        //     console.log(data);
-        // },slider1);
+        // slider1.setId('我是房子么?');
 
         // setTimeout(function () {
-        //     FFF.trigger('hasData', {isfire: '我着火了..'});
+        //     mc.fire('hasData', {isfire: '我着火了..'});
+        //     mc.off('hasData',slider1);
+        //     console.log("排除房子");
+        //     mc.fire('hasData', {isfire: '我着火了..'});
         // }, 2000);
-
     });
-
-</script>
+    </script>
 
 </body>
+
 </html>
