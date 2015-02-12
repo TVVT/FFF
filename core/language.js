@@ -10,9 +10,9 @@ define([], function() {
     F -> Fast
     F -> Front-end
      */
-    var Language = {};
+    var language = {};
 
-    Language.core = {
+    language.core = {
         /**
          * [extend 继承方法]
          * @param  {Function} subClass   子类
@@ -31,7 +31,7 @@ define([], function() {
             var rp = subClass.prototype;
 
             //mix subc prototype
-            Language.core.mix(sp, rp, true);
+            language.core.mix(sp, rp, true);
 
             subClass.prototype = sp;
             subClass.prototype.constructor = subClass;
@@ -129,6 +129,6 @@ define([], function() {
         }
     };
 
-    return Language;
+    return language;
 
 });

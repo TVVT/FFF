@@ -42,6 +42,8 @@
             base: '../core/base',
             attribute: '../core/attribute',
             messageCenter: '../core/messageCenter',
+            FFF: '../core/FFF',
+            zepto: '../lib/zepto',
             language: '../core/language',
             eventEmitter: '../core/eventEmitter',
             widget: '../core/widget',
@@ -49,26 +51,15 @@
         }
     });
 
-    require(['slider', 'messageCenter'], function (Slider, mc) {
+    require(['slider','FFF'], function (Slider) {
+
         var slider1 = new Slider({
             name:'我是房子',
             id: 'widgetA'
         });
 
-        var slider2 = new Slider({
-            name:'我是消防员',
-            id: 'widgetB'
-        });
-
-
-        var slider3 = new Slider({
-            name:'我是救护车',
-            id: 'widgetC'
-        });
-
-        slider1.renderUI();
-        slider2.renderUI();
-        slider3.renderUI();
+      
+        slider1.render({container:$('#widgetB'),type:'after'});
 
 
         slider1.on('idChange', function (obj) {
@@ -77,9 +68,15 @@
 
         slider1.setId('我是房子么?');
 
-        setTimeout(function () {
-            mc.fire('hasData', {isfire: '我着火了..'});
-        }, 2000);
+
+        // FFF.on('hasData',function(data){
+        //     console.log(this.getName())
+        //     console.log(data);
+        // },slider1);
+
+        // setTimeout(function () {
+        //     FFF.trigger('hasData', {isfire: '我着火了..'});
+        // }, 2000);
 
     });
 

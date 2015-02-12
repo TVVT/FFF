@@ -1,4 +1,4 @@
-define(['language','widget','messageCenter'], function(language,widget,mc) {
+define(['language','widget','messageCenter','FFF'], function(language,widget,mc) {
 
     function Slider() {
         widget.apply(this, arguments);
@@ -10,11 +10,6 @@ define(['language','widget','messageCenter'], function(language,widget,mc) {
 
     Slider.prototype.renderUI = function() {
         var me = this;
-
-
-        mc.on(me,'hasData',function(source,data){
-            console.log(source.getName()+' is '+data.isfire);
-        });
     };
     Slider.prototype.bindUI = function() {
 
@@ -36,6 +31,9 @@ define(['language','widget','messageCenter'], function(language,widget,mc) {
         },
         id:{
             value:"123"
+        },
+        boundingBox:{
+            value:$('<div class="bbb"></div>')
         }
     }
 

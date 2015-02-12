@@ -1,8 +1,8 @@
-define(['base', 'language'], function(Base, L) {
+define(['base', 'language', 'zepto'], function(Base, L, $) {
 
     function Widget() {
         Base.apply(this, arguments);
-        __initWidget__.apply(this,arguments);
+        __initWidget__.apply(this, arguments);
     }
 
     /**
@@ -17,13 +17,23 @@ define(['base', 'language'], function(Base, L) {
 
     /**
      * 渲染方法
-     * @param {Object} opt 渲染的参数
+     * @param {Object} container对象 用来Append的容器以及方法 exp: after , before , append...
      * @return {Object} 对象本身
      */
-    Widget.prototype.render = function(opt) {
+    Widget.prototype.render = function(obj) {
+
+        var containerObj = obj ? obj : {
+            container: $('body'),
+            type: 'append'
+        };
+
         this.renderUI();
         this.bindUI();
         this.syncUI();
+        var container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
+        var boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
+        containerObj.container[containerObj.type](boundingBox);
+
         return this;
     }
 
@@ -53,7 +63,7 @@ define(['base', 'language'], function(Base, L) {
             ctx = ctx.superclass || {};
         } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
         for (var i = initializers.length - 1; i >= 0; i--) {
-            initializers[i].apply(this,arguments);
+            initializers[i].apply(this, arguments);
             // if (i == 0 && arguments.length > 0) {
             //     initializers[i].apply(this,arguments);
             // }else{
@@ -63,10 +73,10 @@ define(['base', 'language'], function(Base, L) {
 
         // 重置默认属性以及相关操作
         if (typeof args === 'object') {
-            for(key in args){
+            for (key in args) {
                 if (this.constructor.ATTRS[key]) {
                     var cName = key.charAt(0).toUpperCase() + key.substr(1);
-                    this['set'+cName](args[key]);
+                    this['set' + cName](args[key]);
                 };
             }
         };
