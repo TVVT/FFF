@@ -1,7 +1,9 @@
 /**
  * MessageCenter
  */
-define(['language'], function (L) {
+define(['language'], function (language) {
+
+    var L = language.language;
 
     L.messageCenter = {
         __events__: {},

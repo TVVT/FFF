@@ -1,4 +1,8 @@
-define(['language','attribute','eventEmitter'], function(L,Attribute,EventEmitter) {
+define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, EventEmitter) {
+
+    var Attribute = Attribute.Attribute;
+    var EventEmitter = EventEmitter.EventEmitter;
+    var L = language.language;
 
     /**
      * FFF基础类,所有类都讲继承Base
@@ -12,6 +16,8 @@ define(['language','attribute','eventEmitter'], function(L,Attribute,EventEmitte
     L.core.mix(Base.prototype, EventEmitter.prototype, false);
 
 
-    return Base;
+    return {
+        Base: Base
+    };
 
 });

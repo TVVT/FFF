@@ -53,20 +53,17 @@
 
     require(['slider','FFF'], function (Slider) {
 
-        var slider1 = new Slider({
-            name:'我是房子',
-            id: 'widgetA'
-        });
+        var slider1 = new Slider();
 
       
         slider1.render({container:$('#widgetB'),type:'after'});
 
+        slider1.on('nameChange',function(obj){
+            console.log(obj)
+        })
 
-        slider1.on('idChange', function (obj) {
-            console.log('id的改变:'+obj.value)
-        });
-
-        slider1.setId('我是房子么?');
+        slider1.setName('xxx');
+        console.log(slider1.getName('xxx'));
 
 
         // FFF.on('hasData',function(data){

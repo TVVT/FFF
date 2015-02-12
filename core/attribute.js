@@ -2,7 +2,9 @@
  * Attribute处理类
  * 这里暂时放入Base
  */
-define(['language'], function (L) {
+define(['language'], function(language) {
+
+    var L = language.language;
 
     function Attribute() {
         this.__initAttr__();
@@ -12,7 +14,7 @@ define(['language'], function (L) {
      * 初始化所有属性 ATTRS
      * 注：如果extend中做过类属性的继承，那么此处将要改动
      */
-    Attribute.prototype.__initAttr__ = function () {
+    Attribute.prototype.__initAttr__ = function() {
         var attrs = mergeATTRS(this.constructor);
         addPrivates(this, attrs);
     };
@@ -48,7 +50,7 @@ define(['language'], function (L) {
     function addPrivates(obj, attrs) {
 
         var defineProperty = ('defineProperty' in Object) ? Object.defineProperty :
-            function (object, name, descriptor) {
+            function(object, name, descriptor) {
                 if (!Object.prototype.__defineGetter__) {
                     return;
                 }
@@ -61,39 +63,55 @@ define(['language'], function (L) {
                 }
             };
 
-        Object.keys(attrs).forEach(function (key) {
+        Object.keys(attrs).forEach(function(key) {
 
             var cName = key.charAt(0).toUpperCase() + key.substr(1);
             var setter = 'set' + cName;
             var getter = 'get' + cName;
             var delter = 'del' + cName;
+            var getFunc, setFunc;
 
             var cacheVal = attrs[key].value || '';
 
+            if (attrs[key].hasOwnProperty('valueFn')) {
+                cacheVal = attrs[key].valueFn();
+            };
+
             defineProperty(obj, key, {
                 configurable: true,
-                get: function () {
-                    return cacheVal;
+                get: function() {
+                    return cacheVal
                 },
-                set: function (val) {
+                set: function(val) {
                     cacheVal = val;
                 }
             });
 
-            obj[setter] = function (val) {
+            obj[setter] = function(val) {
+                var preValue = obj[getter]();
+
+                if (attrs[key].hasOwnProperty('set')) {
+                    var settedValue = attrs[key].set.call(obj,val);
+                    Object.getOwnPropertyDescriptor(obj, key).set(settedValue);
+                }else{
+                    Object.getOwnPropertyDescriptor(obj, key).set(val);
+                }
+
                 obj.trigger(key + 'Change', {
-                    value: val,
-                    preValue: obj[getter]()
+                    value: obj[getter](),
+                    preValue: preValue
                 });
-
-                Object.getOwnPropertyDescriptor(obj, key).set(val);
             };
 
-            obj[getter] = function () {
-                return Object.getOwnPropertyDescriptor(obj, key).get();
+            obj[getter] = function() {
+                if (attrs[key].hasOwnProperty('get')) {
+                    return attrs[key].get.call(obj,Object.getOwnPropertyDescriptor(obj, key).get());
+                }else{
+                    return Object.getOwnPropertyDescriptor(obj, key).get();
+                }
             };
 
-            obj[delter] = function () {
+            obj[delter] = function() {
                 defineProperty(obj, key, {
                     enumerable: true,
                     configurable: true
@@ -107,5 +125,7 @@ define(['language'], function (L) {
         });
     }
 
-    return Attribute;
+    return {
+        Attribute: Attribute
+    };
 });

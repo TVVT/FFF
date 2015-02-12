@@ -1,7 +1,10 @@
 define(['language','widget','messageCenter','FFF'], function(language,widget,mc) {
 
+    var L = language.language;
+    var Widget = widget.Widget;
+
     function Slider() {
-        widget.apply(this, arguments);
+        Widget.apply(this, arguments);
     }
 
 
@@ -24,13 +27,15 @@ define(['language','widget','messageCenter','FFF'], function(language,widget,mc)
 
     Slider.ATTRS = {
         name:{
-            value:"foo"
+            valueFn:function(){
+                return 'ooooooooo';
+            },
+            set:function(val){
+                return val + 'abc ' + this.getCount();
+            }
         },
-        title:{
-            value:"bar"
-        },
-        id:{
-            value:"123"
+        count:{
+            value:1
         },
         boundingBox:{
             value:$('<div class="bbb"></div>')
@@ -38,6 +43,6 @@ define(['language','widget','messageCenter','FFF'], function(language,widget,mc)
     }
 
 
-    return language.core.extend(Slider, widget);
+    return L.core.extend(Slider, Widget);
 
 });

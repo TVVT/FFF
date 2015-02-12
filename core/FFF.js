@@ -1,5 +1,8 @@
-define(['base','language'],function(Base,L){
+define(['base','language'],function(base,language){
 
+	var L = language.language;
+	var Base = base.Base;
+	
 	var VERSION = 0.1;
 
 	function FFF(){
@@ -13,6 +16,8 @@ define(['base','language'],function(Base,L){
 
 	window.FFF = F;
 
-	return F
+	return {
+		FFF:F
+	}
 
 })

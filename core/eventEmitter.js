@@ -2,13 +2,13 @@
  * Handler 类
  * 暂时放在Base文件中
  */
-define(['language'], function(L) {
+define(['language'], function(language) {
+
+    var L = language.language;
 
     function EventEmitter() {
         this.__events__ = {};
     }
-
-
 
 
     /**
@@ -17,16 +17,15 @@ define(['language'], function(L) {
      * @param  {Object/Array} args 额外的参数
      * @return {Object} 实例对象
      */
-    EventEmitter.prototype.trigger = function (evt,args) {
+    EventEmitter.prototype.trigger = function(evt, args) {
         if (this.__events__.hasOwnProperty(evt)) {
             var evtVal = this.__events__[evt];
-
-            if(L.core.type(args) != 'array'){
+            if (L.core.type(args) != 'array') {
                 args = [args];
             }
-
-
-            evtVal.handler.apply(evtVal.scope, args);
+            evtVal.forEach(function(o){
+                o.handler.apply(evtVal.scope, args);
+            })
         }
         return this;
     };
@@ -40,11 +39,19 @@ define(['language'], function(L) {
      * @returns {Object} 实例对象
      * TODO:是否需要多事件绑定
      */
-    EventEmitter.prototype.on = function(evt, handler,scope) {
-        this.__events__[evt] = {
-            handler: handler,
-            scope: scope || this
-        };
+    EventEmitter.prototype.on = function(evt, handler, scope) {
+        if (this.__events__.hasOwnProperty(evt)) {
+            this.__events__[evt].push({
+                handler: handler,
+                scope: scope || this
+            })
+        } else {
+            this.__events__[evt] = [{
+                handler: handler,
+                scope: scope || this
+            }]
+        }
+
         return this;
     };
 
@@ -54,20 +61,22 @@ define(['language'], function(L) {
      * @return {Object} 实例对象
      */
     EventEmitter.prototype.off = function(evt) {
-    	if (this.__events__.hasOwnProperty(evt)) {
-    		delete this.__events__[evt];
-    	}
-    	return this;
+        if (this.__events__.hasOwnProperty(evt)) {
+            delete this.__events__[evt];
+        }
+        return this;
     };
 
     /**
      * 注销所有事件
      * @return {Object} 实例对象
      */
-    EventEmitter.prototype.offAll = function(){
-    	this.__events__ = {};
-    	return this;
+    EventEmitter.prototype.offAll = function() {
+        this.__events__ = {};
+        return this;
     };
 
-    return EventEmitter;
+    return {
+        EventEmitter: EventEmitter
+    };
 });

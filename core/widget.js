@@ -1,4 +1,7 @@
-define(['base', 'language', 'zepto'], function(Base, L, $) {
+define(['base', 'language', 'zepto'], function(base, language, $) {
+
+    var Base = base.Base;
+    var L = language.language;
 
     function Widget() {
         Base.apply(this, arguments);
@@ -64,11 +67,6 @@ define(['base', 'language', 'zepto'], function(Base, L, $) {
         } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
         for (var i = initializers.length - 1; i >= 0; i--) {
             initializers[i].apply(this, arguments);
-            // if (i == 0 && arguments.length > 0) {
-            //     initializers[i].apply(this,arguments);
-            // }else{
-            //     initializers[i].apply(this);
-            // }
         };
 
         // 重置默认属性以及相关操作
@@ -82,6 +80,10 @@ define(['base', 'language', 'zepto'], function(Base, L, $) {
         };
     }
 
-    return L.core.extend(Widget, Base);
+    L.core.extend(Widget, Base)
+
+    return {
+        Widget:Widget
+    };
 
 });

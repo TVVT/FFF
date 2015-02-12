@@ -6,18 +6,18 @@
 define([], function() {
 
     var TYPES = {
-        'undefined'        : 'undefined',
-        'number'           : 'number',
-        'boolean'          : 'boolean',
-        'string'           : 'string',
+        'undefined': 'undefined',
+        'number': 'number',
+        'boolean': 'boolean',
+        'string': 'string',
         '[object Function]': 'function',
-        '[object RegExp]'  : 'regexp',
-        '[object Array]'   : 'array',
-        '[object Date]'    : 'date',
-        '[object Error]'   : 'error'
+        '[object RegExp]': 'regexp',
+        '[object Array]': 'array',
+        '[object Date]': 'date',
+        '[object Error]': 'error'
     };
 
-    var TOSTRING     = Object.prototype.toString;
+    var TOSTRING = Object.prototype.toString;
 
     /*
     F -> the First store
@@ -41,7 +41,8 @@ define([], function() {
             }
 
             //extend spo == superc prototype origin
-            var sp = Object.create(superClass.prototype),spo = Object.create(superClass.prototype);
+            var sp = Object.create(superClass.prototype),
+                spo = Object.create(superClass.prototype);
             var rp = subClass.prototype;
 
             //mix subc prototype
@@ -143,11 +144,13 @@ define([], function() {
         },
 
 
-        type: function (o) {
+        type: function(o) {
             return TYPES[typeof o] || TYPES[TOSTRING.call(o)] || (o ? 'object' : 'null');
         }
     };
 
-    return language;
+    return {
+        language: language
+    };
 
 });
