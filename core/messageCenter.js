@@ -45,7 +45,7 @@ define(['language', 'eventEmitter'], function (L, event) {
             if (this.__events__.hasOwnProperty(evt)) {
                 var ev = this.__events__[evt];
                 ev.forEach(function (o, index) {
-                    if (o.scope == exclude) {
+                    if (o.scope === exclude) {
                         ev.splice(index, 1);
                     }
                 });
