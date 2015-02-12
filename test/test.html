@@ -49,7 +49,7 @@
         }
     });
 
-    require(['slider', 'messageCenter', 'language'], function (Slider, mc, L) {
+    require(['slider', 'messageCenter'], function (Slider, mc) {
         var slider1 = new Slider({
             name: '我是房子',
             id: 'widgetA'
@@ -84,20 +84,7 @@
             mc.fire('hasData', {isfire: '我着火了..'});
         }, 2000);
 
-        /*        function a() {
-         this.haha = 0;
-         }
-         a.prototype.hoho = 'abcdefg';
-         a.prototype.hehe = function () {
-         console.log(0);
-         };
-         function b() {
-         }
 
-         L.core.extend(b, a);
-         var c = new b();
-         console.log(c.superclass.hoho = 'as');
-         console.log(new a().hoho);*/
     });
 
 </script>
