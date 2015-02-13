@@ -30,9 +30,10 @@ define(['FFF'], function(FFF) {
 
     }
 
-    Rect.STATICS = {
+
+    F.extend(Rect, Widget, {
         renderUI: function() {
-            this.getBoundingBox().width(this.getWidth()).height(this.getHeight()).css('background-color',this.getColor());
+            this.getBoundingBox().width(this.getWidth()).height(this.getHeight()).css('background-color', this.getColor());
             this.getBoundingBox().append('<p>我的面积是:' + this.getArea() + '</p>');
         },
         bindUI: function() {
@@ -43,17 +44,15 @@ define(['FFF'], function(FFF) {
         },
         render: function() {
             this.superclass.render.call(this);
-            this.getBoundingBox().css('margin-left',Math.random()*100+'px');
+            this.getBoundingBox().css('margin-left', Math.random() * 100 + 'px');
         },
         destructor: function() {
 
         },
-        initialize:function(){
+        initialize: function() {
 
         }
-    }
-
-    F.extend(Rect, Widget,Rect.STATICS);
+    });
 
     return {
         Rect: Rect
