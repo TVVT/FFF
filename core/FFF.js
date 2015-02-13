@@ -1,23 +1,35 @@
-define(['base','language'],function(base,language){
+define(['base', 'language', 'widget'], function (base, language, widget) {
 
-	var L = language.language;
-	var Base = base.Base;
-	
-	var VERSION = 0.1;
+    var L = language.language;
+    var Base = base.Base;
+    var Widget = widget.Widget;
 
-	function FFF(){
-		this.version = VERSION;
-		Base.apply(this,arguments);
-	}
 
-	L.core.extend(FFF,Base);
+    var VERSION = 0.1;
 
-	var F = new FFF();
+    function FFF() {
+        this.version = VERSION;
+        Base.apply(this, arguments);
+    }
 
-	window.FFF = F;
+    FFF.STATICS = {
+        Language: L,
+        Base: Base,
+        Widget: Widget
+    };
 
-	return {
-		FFF:F
-	}
+
+    //让FFF拥有Language类的static方法
+    L.mix(FFF.prototype, L);
+
+    L.extend(FFF, Base, FFF.STATICS);
+
+    var F = new FFF();
+
+    window.FFF = F;
+
+    return {
+        FFF: F
+    }
 
 })

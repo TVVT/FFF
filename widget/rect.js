@@ -1,6 +1,6 @@
-define(['language', 'widget'], function(language, widget) {
-    var L = language.language,
-        Widget = widget.Widget;
+define(['FFF'], function(FFF) {
+    var F = FFF.FFF,
+        Widget = F.Widget;
 
     function Rect() {
         Widget.apply(this, arguments);
@@ -30,7 +30,7 @@ define(['language', 'widget'], function(language, widget) {
 
     }
 
-    Rect.prototype = {
+    Rect.STATICS = {
         renderUI: function() {
             this.getBoundingBox().width(this.getWidth()).height(this.getHeight()).css('background-color',this.getColor());
             this.getBoundingBox().append('<p>我的面积是:' + this.getArea() + '</p>');
@@ -53,7 +53,7 @@ define(['language', 'widget'], function(language, widget) {
         }
     }
 
-    L.core.extend(Rect, Widget);
+    F.extend(Rect, Widget,Rect.STATICS);
 
     return {
         Rect: Rect

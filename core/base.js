@@ -12,8 +12,8 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
         EventEmitter.apply(this, arguments);
     }
 
-    L.core.mix(Base.prototype, Attribute.prototype, false);
-    L.core.mix(Base.prototype, EventEmitter.prototype, false);
+    L.mix(Base.prototype, Attribute.prototype, false);
+    L.mix(Base.prototype, EventEmitter.prototype, false);
 
 
     return {

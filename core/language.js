@@ -24,18 +24,17 @@ define([], function() {
     F -> Fast
     F -> Front-end
      */
-    var language = {};
-
-    language.core = {
+    var language = {
         /**
          * [extend 继承方法]
          * @param  {Function} subClass   子类
          * @param  {Function} superClass 父类
+         * @param {object} px prototype properties to add/override.
          * @return {Function}        继承父类之后的子类
          * TODO: 类属性是否需要继承?
          * TODO: 需要加上一个callParent的判断，用于对父类的属性做修改
          */
-        extend: function(subClass, superClass) {
+        extend: function(subClass, superClass,px) {
             if (!superClass || !subClass) {
                 throw new Error("extend failed, please check that all dependencies are included!");
             }
@@ -45,8 +44,13 @@ define([], function() {
                 spo = Object.create(superClass.prototype);
             var rp = subClass.prototype;
 
+            // add prototype overrides
+            if (px) {
+                language.mix(rp, px, true);
+            }
+
             //mix subc prototype
-            language.core.mix(sp, rp, true);
+            language.mix(sp, rp, true);
 
             subClass.prototype = sp;
             subClass.prototype.constructor = subClass;

@@ -80,7 +80,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
         };
     }
 
-    L.core.extend(Widget, Base)
+    L.extend(Widget, Base);
 
     return {
         Widget:Widget

@@ -32,7 +32,7 @@ define(['language'], function(language) {
 
         if (cls.hasOwnProperty('ATTRS')) {
             //如果子类拥有同名的属性,默认使用子类的,即不覆盖
-            L.core.mix(mixAttrs, cls.ATTRS, false);
+            L.mix(mixAttrs, cls.ATTRS, false);
         }
 
         if (cls.superclass) {

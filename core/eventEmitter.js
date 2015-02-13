@@ -20,7 +20,7 @@ define(['language'], function(language) {
     EventEmitter.prototype.trigger = function(evt, args) {
         if (this.__events__.hasOwnProperty(evt)) {
             var evtVal = this.__events__[evt];
-            if (L.core.type(args) != 'array') {
+            if (L.type(args) != 'array') {
                 args = [args];
             }
             evtVal.forEach(function(o){
