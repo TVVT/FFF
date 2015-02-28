@@ -10,6 +10,7 @@ define([], function() {
         'number': 'number',
         'boolean': 'boolean',
         'string': 'string',
+        '[object String]': 'string',
         '[object Function]': 'function',
         '[object RegExp]': 'regexp',
         '[object Array]': 'array',
