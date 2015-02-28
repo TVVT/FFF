@@ -11,6 +11,7 @@ define([], function() {
         'boolean': 'boolean',
         'string': 'string',
         '[object String]': 'string',
+        '[object Number]': 'number',
         '[object Function]': 'function',
         '[object RegExp]': 'regexp',
         '[object Array]': 'array',
