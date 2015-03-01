@@ -3,7 +3,7 @@
  * 包含继承,mix,namespace等基础方法
  * @return {Object}   FFF
  */
-define([], function() {
+define(['zepto'], function($) {
 
     var TYPES = {
         'undefined': 'undefined',
@@ -34,7 +34,7 @@ define([], function() {
          * TODO: 类属性是否需要继承?
          * TODO: 需要加上一个callParent的判断，用于对父类的属性做修改
          */
-        extend: function(subClass, superClass,px) {
+        extend: function(subClass, superClass, px) {
             if (!superClass || !subClass) {
                 throw new Error("extend failed, please check that all dependencies are included!");
             }
@@ -146,10 +146,43 @@ define([], function() {
 
             };
         },
-
-
         type: function(o) {
             return TYPES[typeof o] || TYPES[TOSTRING.call(o)] || (o ? 'object' : 'null');
+        },
+        clone: function(obj) {
+            var type = language.type(obj),
+                ret = {};
+            if (typeof obj !== 'object') {
+                return obj;
+            };
+            if ($.zepto.isZ(obj)) {
+                return obj.clone();
+            };
+            switch (type) {
+                case 'date':
+                    return new Date(obj);
+                case 'regexp':
+                    return obj;
+                case 'function':
+                    return obj;
+                case 'array':
+                    var arr = [];
+                    obj.forEach(function(value){
+                        arr.push(language.clone(value));
+                    });
+                    break;
+                default:
+                    Object.keys(obj).forEach(function(key) {
+                        var prop = obj[key];
+                        var thisType = language.type(prop)
+                        if (thisType == 'object' || thisType == 'array' || thisType == 'date') {
+                            ret[key] = language.clone(prop);
+                        } else {
+                            ret[key] = prop;
+                        }
+                    });
+            }
+            return ret;
         }
     };
 

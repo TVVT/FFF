@@ -49,6 +49,8 @@ define(['language'], function(language) {
      */
     function addPrivates(obj, attrs) {
 
+        attrs = L.clone(attrs);
+
         var defineProperty = ('defineProperty' in Object) ? Object.defineProperty :
             function(object, name, descriptor) {
                 if (!Object.prototype.__defineGetter__) {

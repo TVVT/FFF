@@ -28,7 +28,7 @@
 
         var rect1 = new Rect();
         var rect2 = new Rect({color:'green',width:200});
-        rect2.setBoundingBox($('<div class="rect2"></div>'));
+        // rect2.setBoundingBox($('<div class="rect2"></div>'));
 
         rect1.on('colorChange',function(obj){
             this.getBoundingBox().css('background-color',obj.value);
