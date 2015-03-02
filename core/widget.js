@@ -41,7 +41,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     }
 
     Widget.prototype.destory = function() {
-        return this;
+        delete this;
     }
 
 
@@ -61,14 +61,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
         var initializers = [];
         var ctx = this;
         var args = arguments[0];
-        do {
-            initializers.push(ctx.initialize);
-            ctx = ctx.superclass || {};
-        } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
-        for (var i = initializers.length - 1; i >= 0; i--) {
-            initializers[i].apply(this, arguments);
-        };
-
         // 重置默认属性以及相关操作
         if (typeof args === 'object') {
             for (key in args) {
@@ -77,6 +69,13 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                     this['set' + cName](args[key]);
                 };
             }
+        };
+        do {
+            initializers.push(ctx.initialize);
+            ctx = ctx.superclass || {};
+        } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
+        for (var i = initializers.length - 1; i >= 0; i--) {
+            initializers[i].apply(this, arguments);
         };
     }
 

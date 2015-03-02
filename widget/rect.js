@@ -35,9 +35,9 @@ define(['FFF'], function(FFF) {
         renderUI: function() {
             this.getBoundingBox().width(this.getWidth()).height(this.getHeight()).css('background-color', this.getColor());
             this.getBoundingBox().append('<p>我的面积是:' + this.getArea() + '</p>');
-        },
+        },  
         bindUI: function() {
-
+            
         },
         syncUI: function() {
 
@@ -50,7 +50,7 @@ define(['FFF'], function(FFF) {
 
         },
         initialize: function() {
-
+            console.log(this.getColor())
         }
     });
 

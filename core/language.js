@@ -163,9 +163,7 @@ define(['zepto'], function($) {
             switch (type) {
                 case 'date':
                     return new Date(obj);
-                case 'regexp':
-                    return obj;
-                case 'function':
+                case 'regexp' || 'function' || 'string' || 'number':
                     return obj;
                 case 'array':
                     var arr = [];
