@@ -1,4 +1,4 @@
-define(['FFF'], function(FFF) {
+define(['FFF','zepto'], function(FFF,$) {
     var F = FFF.FFF,
         Widget = F.Widget;
 

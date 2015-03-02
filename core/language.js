@@ -152,39 +152,50 @@ define(['zepto'], function($) {
             return TYPES[typeof o] || TYPES[TOSTRING.call(o)] || (o ? 'object' : 'null');
         },
         clone: function(obj) {
-            var type = language.type(obj),
-                ret = {};
-            if (typeof obj !== 'object') {
+            if (obj === null || obj === undefined) {
                 return obj;
-            };
+            }
+
+            // DOM nodes
+            // TODO proxy this to Ext.Element.clone to handle automatic id attribute changing
+            // recursively
+            if (obj.nodeType && obj.cloneNode) {
+                return obj.cloneNode(true);
+            }
+
             if ($.zepto.isZ(obj)) {
                 return obj.clone();
-            };
-            switch (type) {
-                case 'date':
-                    return new Date(obj);
-                case 'regexp':
-                    return obj;
-                case 'function':
-                    return obj;
-                case 'array':
-                    var arr = [];
-                    obj.forEach(function(value){
-                        arr.push(language.clone(value));
-                    });
-                    break;
-                default:
-                    Object.keys(obj).forEach(function(key) {
-                        var prop = obj[key];
-                        var thisType = language.type(prop)
-                        if (thisType == 'object' || thisType == 'array' || thisType == 'date') {
-                            ret[key] = language.clone(prop);
-                        } else {
-                            ret[key] = prop;
-                        }
-                    });
             }
-            return ret;
+
+            var type = language.type(obj),
+                i, j, k, clone, key;
+
+            // Date
+            if (type === 'date') {
+                return new Date(item.getTime());
+            }
+
+            // Array
+            if (type === 'array') {
+                i = obj.length;
+
+                clone = [];
+
+                while (i--) {
+                    clone[i] = language.clone(obj[i]);
+                }
+            }
+            // Object
+            else if (type === 'object' && obj.constructor === Object) {
+                clone = {};
+
+                for (key in obj) {
+                    clone[key] = language.clone(obj[key]);
+                }
+
+            }
+
+            return clone || obj;
         }
     };
 
