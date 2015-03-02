@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head lang="en">
     <meta charset="UTF-8">
     <title>demo</title>
@@ -29,9 +28,9 @@
         var rect1 = new Rect();
         var rect2 = new Rect({color:'green',width:200});
 
-        rect1.on('colorChange',function(obj){
-            this.getBoundingBox().css('background-color',obj.value);
-        })
+        // rect1.on('colorChange',function(obj){
+        //     this.getBoundingBox().css('background-color',obj.value);
+        // })
 
         rect1.render();
         rect2.render(); 
@@ -39,6 +38,8 @@
         rect1.getBoundingBox().on('click',function(){
             rect1.setColor('#ff3c3c');
         });
+
+        rect2.destory();
 
     });
     </script>

@@ -8,8 +8,8 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
      * FFF基础类,所有类都讲继承Base
      */
     function Base() {
-        Attribute.apply(this, arguments);
         EventEmitter.apply(this, arguments);
+        Attribute.apply(this, arguments);
     }
 
     L.mix(Base.prototype, Attribute.prototype, false);

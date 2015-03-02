@@ -79,6 +79,10 @@ define(['language'], function(language) {
                 cacheVal = attrs[key].valueFn.call(obj);
             };
 
+            if (attrs[key].hasOwnProperty('changeFn')){
+                obj.on(key+'Change',attrs[key].changeFn,obj);
+            }
+
             defineProperty(obj, key, {
                 configurable: true,
                 get: function() {

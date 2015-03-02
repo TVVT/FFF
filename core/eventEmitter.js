@@ -32,12 +32,10 @@ define(['language'], function(language) {
 
 
     /**
-     * 注册事件，暂不支持多个handler绑定在一个事件上
      * @param evt 事件名
      * @param handler 事件处理函数
      * @param scope 作用域 默认为this
      * @returns {Object} 实例对象
-     * TODO:是否需要多事件绑定
      */
     EventEmitter.prototype.on = function(evt, handler, scope) {
         if (this.__events__.hasOwnProperty(evt)) {

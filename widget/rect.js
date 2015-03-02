@@ -11,7 +11,10 @@ define(['FFF','zepto'], function(FFF,$) {
             value: $('<div class="rect"></div>')
         },
         color: {
-            value: 'blue'
+            value: 'blue',
+            changeFn:function(obj){
+                console.log(obj);
+            }
         },
         width: {
             value: 100
@@ -50,7 +53,6 @@ define(['FFF','zepto'], function(FFF,$) {
 
         },
         initialize: function() {
-            console.log(this.getColor())
         }
     });
 
