@@ -157,8 +157,6 @@ define(['zepto'], function($) {
             }
 
             // DOM nodes
-            // TODO proxy this to Ext.Element.clone to handle automatic id attribute changing
-            // recursively
             if (obj.nodeType && obj.cloneNode) {
                 return obj.cloneNode(true);
             }
