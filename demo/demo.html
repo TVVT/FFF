@@ -6,6 +6,7 @@
     <script src="../lib/require.js"></script>
 </head>
 <body>
+    <div id="a"></div>
 </body>
  <script>
     require.config({
@@ -25,21 +26,21 @@
 
         var Rect = rect.Rect;
 
-        var rect1 = new Rect();
-        var rect2 = new Rect({color:'green',width:200});
+        // var rect1 = new Rect();
+        var rect2 = new Rect({boundingBox:$('<div></div>')});
 
         // rect1.on('colorChange',function(obj){
         //     this.getBoundingBox().css('background-color',obj.value);
         // })
-
-        rect1.render();
+        // rect1.setBoundingBox($('#a'));
+        // rect1.render();
         rect2.render(); 
 
-        rect1.getBoundingBox().on('click',function(){
-            rect1.setColor('#ff3c3c');
-        });
+        // rect1.getBoundingBox().on('click',function(){
+        //     rect1.setColor('#ff3c3c');
+        // }).addClass('abc');
 
-        rect2.destory();
+        // rect2.destory();
 
     });
     </script>

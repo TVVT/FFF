@@ -7,13 +7,10 @@ define(['FFF','zepto'], function(FFF,$) {
     }
 
     Rect.ATTRS = {
-        boundingBox: {
-            value: $('<div class="rect"></div>')
-        },
         color: {
             value: 'blue',
             changeFn:function(obj){
-                console.log(obj);
+                // console.log(obj);
             }
         },
         width: {
