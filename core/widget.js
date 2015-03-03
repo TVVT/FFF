@@ -76,7 +76,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
 
     Widget.ATTRS = {
         boundingBox: {
-            value: $('.boundingBox')
+            value: $('<div class="boundingBox"></div>')
         }
     }
 
