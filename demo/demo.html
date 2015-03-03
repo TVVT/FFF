@@ -18,23 +18,27 @@
             language: '../core/language',
             eventEmitter: '../core/eventEmitter',
             widget: '../core/widget',
-            rect: '../widget/rect'
+            rect: '../widget/rect',
+            test:  '../widget/test'
+
         }
     });
 
-    require(['rect', 'FFF','zepto'], function(rect,FFF,$) {
+    require(['test', 'FFF','zepto'], function(test,FFF,$) {
 
-        var Rect = rect.Rect;
+        var Test = test.Test;
 
         // var rect1 = new Rect();
-        var rect2 = new Rect({boundingBox:$('<div></div>')});
+        var test1 = new Test({boundingBox:$('<div></div>')});
 
         // rect1.on('colorChange',function(obj){
         //     this.getBoundingBox().css('background-color',obj.value);
         // })
         // rect1.setBoundingBox($('#a'));
         // rect1.render();
-        rect2.render(); 
+        test1.render(); 
+
+        console.dir(test1);
 
         // rect1.getBoundingBox().on('click',function(){
         //     rect1.setColor('#ff3c3c');
