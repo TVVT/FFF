@@ -46,13 +46,15 @@ define(['zepto'], function($) {
                 spo = Object.create(superClass.prototype);
             var rp = subClass.prototype;
 
-            // add prototype overrides
+             // add prototype overrides
             if (px) {
-                language.mix(rp, px, true);
+                language.mix(rp, px, true,subClass);
             }
 
             //mix subc prototype
-            language.mix(sp, rp, true);
+            language.mix(sp, rp, true,subClass);
+
+
 
             subClass.prototype = sp;
             subClass.prototype.constructor = subClass;
@@ -74,13 +76,18 @@ define(['zepto'], function($) {
          * @param  {Boolean} overwrite 是否覆盖属性
          * @return {Object}           mix后的Object
          */
-        mix: function(receiver, supplier, overwrite) {
+        mix: function(receiver, supplier, overwrite,subClass) {
             Object.keys(supplier).forEach(function(o) {
                 if (overwrite) {
                     receiver[o] = supplier[o];
+                    receiver[o].$owner = subClass;
+                    receiver[o].$name = o;
+
                 } else {
                     if (!receiver.hasOwnProperty(o)) {
                         receiver[o] = supplier[o];
+                        receiver[o].$owner = subClass;
+                        receiver[o].$name = o;
                     }
                 }
             });

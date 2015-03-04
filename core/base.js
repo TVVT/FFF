@@ -12,6 +12,19 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
         Attribute.apply(this, arguments);
     }
 
+    Base.prototype.callParent = function(){
+        var me = this;
+        var method = this.callParent.caller;
+        var parentClass = method.__owner__.superclass;
+        var methodName = method.__name__;
+        var superMethod = parentClass.prototype[methodName];
+
+        if(superMethod){
+            superMethod.apply(me,arguments)
+        }
+   
+    };
+
     L.mix(Base.prototype, Attribute.prototype, false);
     L.mix(Base.prototype, EventEmitter.prototype, false);
 

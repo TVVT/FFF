@@ -43,7 +43,7 @@ define(['FFF', 'zepto'], function(FFF, $) {
 
         },
         render: function() {
-            this.superclass.render.call(this);
+            this.callParent();
             this.getBoundingBox().css('margin-left', Math.random() * 100 + 'px');
         },
         destructor: function() {

@@ -26,6 +26,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
      */
     Widget.prototype.render = function(obj) {
 
+
         var containerObj = obj ? obj : {
             container: $('body'),
             type: 'append'
