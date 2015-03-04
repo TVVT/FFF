@@ -32,9 +32,9 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             type: 'append'
         };
 
-        this.renderUI();
-        this.bindUI();
-        this.syncUI();
+        this.renderUI(obj);
+        this.bindUI(obj);
+        this.syncUI(obj);
         var container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
         var boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
         containerObj.container[containerObj.type](boundingBox);
