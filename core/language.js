@@ -46,13 +46,13 @@ define(['zepto'], function($) {
                 spo = Object.create(superClass.prototype);
             var rp = subClass.prototype;
 
-             // add prototype overrides
+            // add prototype overrides
             if (px) {
-                language.mix(rp, px, true,subClass);
+                language.__override__(rp, px, subClass);
             }
 
             //mix subc prototype
-            language.mix(sp, rp, true,subClass);
+            language.__override__(sp, rp, subClass);
 
 
 
@@ -76,20 +76,30 @@ define(['zepto'], function($) {
          * @param  {Boolean} overwrite 是否覆盖属性
          * @return {Object}           mix后的Object
          */
-        mix: function(receiver, supplier, overwrite,subClass) {
+        mix: function(receiver, supplier, overwrite) {
             Object.keys(supplier).forEach(function(o) {
                 if (overwrite) {
                     receiver[o] = supplier[o];
-                    receiver[o].$owner = subClass;
-                    receiver[o].$name = o;
-
                 } else {
                     if (!receiver.hasOwnProperty(o)) {
                         receiver[o] = supplier[o];
-                        receiver[o].$owner = subClass;
-                        receiver[o].$name = o;
                     }
                 }
+            });
+            return receiver;
+        },
+        /**
+         * [ __override__ 私有方法 混合两个Object的属性 并且在属性上加入owner和name]
+         * @param  {Object} receiver  接受supplier的属性
+         * @param  {Object} supplier  提供属性给receiver
+         * @param  {Object} cls 需要添加的owner
+         * @return {Object}           mix后的Object
+         */
+        __override__: function(receiver, supplier, cls) {
+            Object.keys(supplier).forEach(function(o) {
+                receiver[o] = supplier[o];
+                receiver[o].__owner__ = cls;
+                receiver[o].__name__ = o;
             });
             return receiver;
         },
