@@ -103,6 +103,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             initializers.push(ctx.initialize);
             ctx = ctx.superclass || {};
         } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
+
         for (var i = initializers.length - 1; i >= 0; i--) {
             initializers[i].apply(this, arguments);
         };

@@ -1,4 +1,4 @@
-define(['FFF','zepto'], function(FFF,$) {
+define(['FFF', 'zepto'], function(FFF, $) {
     var F = FFF.FFF,
         Widget = F.Widget;
 
@@ -9,7 +9,7 @@ define(['FFF','zepto'], function(FFF,$) {
     Rect.ATTRS = {
         color: {
             value: 'blue',
-            changeFn:function(obj){
+            changeFn: function(obj) {
                 // console.log(obj);
             }
         },
@@ -35,9 +35,9 @@ define(['FFF','zepto'], function(FFF,$) {
         renderUI: function() {
             this.getBoundingBox().width(this.getWidth()).height(this.getHeight()).css('background-color', this.getColor());
             this.getBoundingBox().append('<p>我的面积是:' + this.getArea() + '</p>');
-        },  
+        },
         bindUI: function() {
-            
+
         },
         syncUI: function() {
 
@@ -50,11 +50,36 @@ define(['FFF','zepto'], function(FFF,$) {
 
         },
         initialize: function() {
+            this.abc = "abc"
         }
     });
 
+    function Sub() {
+        Rect.apply(this, arguments);
+    }
+
+    Sub.ATTRS = {}
+
+    F.extend(Sub, Rect, {
+        renderUI: function() {
+            console.log(this.abc);
+        },
+        bindUI: function() {
+
+        },
+        syncUI: function() {
+
+        },
+        destructor: function() {
+
+        },
+        initialize: function() {
+        }
+    });
+
+
     return {
-        Rect: Rect
+        Rect: Sub
     };
 
 })
