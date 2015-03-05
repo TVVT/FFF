@@ -12,8 +12,8 @@ define('baseTest', ['FFF','base'], function(FFF,base) {
 
 
     F.extend(BaseTest, Base,{
-        widthSync:function(){
-            this.testPro = '1234';
+        widthSync:function(args){
+            args.testPro = '1234';
         }
     });
 
@@ -35,8 +35,9 @@ define('myBaseTest', ['FFF','baseTest'], function(FFF,baseTest) {
 
 
     F.extend(MyBaseTest, BaseTest,{
-        widthSync:function(){
-            this.callParent();
+        widthSync:function(args){
+            this.callParent(args);
+            args.testMe = '1111';
         }
 
 
@@ -48,20 +49,44 @@ define('myBaseTest', ['FFF','baseTest'], function(FFF,baseTest) {
 
 });
 
-
-
-require(['myBaseTest'], function(myBaseTest) {
-
-
+define('myBt', ['FFF','myBaseTest'], function(FFF,myBaseTest) {
+    var F = FFF.FFF;
     var MyBaseTest = myBaseTest.MyBaseTest;
-    var myBaseTest1 = new MyBaseTest();
+
+
+    function MyBt() {
+        MyBaseTest.apply(this, arguments);
+    }
+
+
+    F.extend(MyBt, MyBaseTest);
+
+    return {
+        MyBt: MyBt
+    };
+
+});
+
+
+
+
+require(['myBt'], function(myBt) {
+
+
+    var MyBt = myBt.MyBt;
+    var myBt = new MyBt();
 
 
     QUnit.test('base-callParent方法测试', function(assert) {
 
-        myBaseTest1.widthSync();
+        var obj ={};
 
-       assert.equal(myBaseTest1.testPro,'1234','callParent方法测试');
+        myBt.widthSync(obj);
+
+
+       assert.equal(obj.testPro,'1234','callParent方法测试');
+
+        assert.equal(obj.testMe,'1111','callParent方法测试');
 
     });
 
