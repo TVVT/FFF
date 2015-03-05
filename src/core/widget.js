@@ -7,6 +7,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
         Base.apply(this, arguments);
         __initWidget__.apply(this, arguments);
         this.isWidget = true;
+        this.opt = arguments[0] || {};
     }
 
     /**
@@ -31,10 +32,20 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             container: $('body'),
             type: 'append'
         };
-        
-        var container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
-        var boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
-        containerObj.container[containerObj.type](boundingBox);
+
+        var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
+        var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
+
+        if (obj && typeof obj == 'object' && obj.hasOwnProperty('container')) {
+            $container[containerObj.type]($boundingBox);
+        };
+
+        if ($boundingBox.parent().length == 0) {
+            if (!obj || typeof obj != 'object' || !obj.hasOwnProperty('container')) {
+                $container[containerObj.type]($boundingBox);
+            };
+        };
+
 
         this.renderUI(obj);
         this.bindUI(obj);
@@ -65,14 +76,14 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 if (key == 'getBoundingBox') {
                     if ($.zepto.isZ(value())) {
                         value().off().remove();
-                    }else{
+                    } else {
                         $(value()).off().remove();
                     }
                 };
             }
             that[key] = null;
         });
-        
+
     }
 
 
@@ -91,7 +102,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     function __initWidget__() {
         var initializers = [];
         var ctx = this;
-        
+
         do {
             initializers.push(ctx.initialize);
             ctx = ctx.superclass || {};
