@@ -31,13 +31,14 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             container: $('body'),
             type: 'append'
         };
+        
+        var container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
+        var boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
+        containerObj.container[containerObj.type](boundingBox);
 
         this.renderUI(obj);
         this.bindUI(obj);
         this.syncUI(obj);
-        var container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
-        var boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
-        containerObj.container[containerObj.type](boundingBox);
 
         return this;
     }
@@ -90,16 +91,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     function __initWidget__() {
         var initializers = [];
         var ctx = this;
-        var args = arguments[0];
-        // 重置默认属性以及相关操作
-        if (typeof args === 'object') {
-            for (key in args) {
-                var cName = key.charAt(0).toUpperCase() + key.substr(1);
-                if (this.hasOwnProperty('set' + cName)) {
-                    this['set' + cName](args[key]);
-                };
-            }
-        };
+        
         do {
             initializers.push(ctx.initialize);
             ctx = ctx.superclass || {};

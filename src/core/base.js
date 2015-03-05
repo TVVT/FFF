@@ -10,6 +10,7 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
     function Base() {
         EventEmitter.apply(this, arguments);
         Attribute.apply(this, arguments);
+        __initBase__.apply(this, arguments);
     }
 
     Base.prototype.callParent = function(){
@@ -28,6 +29,18 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
     L.mix(Base.prototype, Attribute.prototype, false);
     L.mix(Base.prototype, EventEmitter.prototype, false);
 
+    function __initBase__(){
+        var args = arguments[0];
+        // 重置默认属性以及相关操作
+        if (typeof args === 'object') {
+            for (key in args) {
+                var cName = key.charAt(0).toUpperCase() + key.substr(1);
+                if (this.hasOwnProperty('set' + cName)) {
+                    this['set' + cName](args[key]);
+                };
+            }
+        };
+    }
 
     return {
         Base: Base
