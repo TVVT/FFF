@@ -27,7 +27,7 @@ require(['slider'], function(slider) {
 
 
     QUnit.test('off-移除一个事件处理函数', function(assert) {
-        expect(2);
+        expect(1);
 
 
         //slider1绑定自定义的fireHouse事件
