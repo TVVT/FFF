@@ -27,7 +27,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
      */
     Widget.prototype.render = function(obj) {
 
-
         var containerObj = obj ? obj : {
             container: $('body'),
             type: 'append'
@@ -45,7 +44,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 $container[containerObj.type]($boundingBox);
             };
         };
-
 
         this.renderUI(obj);
         this.bindUI(obj);
