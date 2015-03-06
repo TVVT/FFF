@@ -7,7 +7,7 @@ require.config({
         language: '../src/core/language',
         eventEmitter: '../src/core/eventEmitter',
         widget: '../src/core/widget',
-        fastclick: '../src/core/fastclick',
-        template: '../src/core/template'
+        fastclick: '../src/lib/fastclick',
+        template: '../src/lib/template'
     }
 });

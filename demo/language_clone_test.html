@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>type 判断变量类型</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+    require(['FFF','zepto'], function(FFF,$) {
+        var F = FFF.FFF;
+
+        var objZepto = $('body');
+        var clonedObjZepto = F.clone(objZepto);
+        console.log(objZepto === clonedObjZepto);
+
+        var objDom = document.querySelector('body');
+        var clonedObjDom = F.clone(objDom);
+        console.log(clonedObjDom === objDom);
+
+        var objDate = new Date();
+        var clonedObjDate = F.clone(objDate);
+        console.log(objDate === clonedObjDate);
+
+        //Array深克隆
+        var objArray = [1,2,objZepto,objDom];
+        var clonedObjArray = F.clone(objArray);
+        console.log(clonedObjArray[2] === objArray[2]);
+
+        var objObject = {z:objZepto};
+        var clonedObjObject = F.clone(objObject);
+        console.log(clonedObjObject.z === objObject.z);
+
+    });
+    </script>
+</body>
+</html>

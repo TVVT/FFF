@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>mix 混合两个Object的属性</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+    require(['FFF'], function(FFF) {
+        var F = FFF.FFF;
+
+        var receiver = {
+            width: 100,
+            height: 200
+        };
+
+        var supplier = {
+            width: 300,
+            left: 200
+        };
+        //混合两个Object的属性
+        //默认不覆盖目标已有属性
+        F.mix(receiver,supplier);
+
+        console.dir(receiver);
+
+        var receiver1 = {
+            width: 100,
+            height: 200
+        };
+
+        var supplier1 = {
+            width: 300,
+            left: 200
+        };
+        //混合两个Object的属性
+        //覆盖目标已有属性
+        F.mix(receiver1,supplier1,true);
+
+        console.dir(receiver1);
+
+    });
+    </script>
+</body>
+</html>
