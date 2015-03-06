@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>移除一个事件处理函数</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+        define('test',['FFF'], function(FFF) {
+            var F = FFF.FFF,
+                Widget = F.Widget;
+
+            function Test() {
+                Widget.apply(this, arguments);
+            }
+
+            F.extend(Test, Widget);
+
+            return {
+                Test: Test
+            };
+        });
+    </script>
+    <script>
+    require(['test'], function(Test) {
+        var Test  =  Test.Test;
+        var test = new Test();
+        //test绑定自定义的fireHouse事件
+        test.on('fireHouse', function(obj) {
+            console.log('自定义事件绑定测试：'+obj.target)
+        });
+        //手动触发自定义的fireHouse事件
+        //传递给事件处理程序的额外参数target。
+        test.trigger('fireHouse',{
+            target:'我是test'
+        });
+
+        //移除fireHouse事件处理函数
+        test.off('fireHouse');
+
+        //再次手动触发自定义的fireHouse事件
+        test.trigger('fireHouse',{
+            target:'我是test'
+        });
+    });
+    </script>
+</body>
+</html>
