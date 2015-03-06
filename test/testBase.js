@@ -49,6 +49,8 @@ define('myBaseTest', ['FFF','baseTest'], function(FFF,baseTest) {
 
 });
 
+
+//子类无widthSync方法
 define('myBt', ['FFF','myBaseTest'], function(FFF,myBaseTest) {
     var F = FFF.FFF;
     var MyBaseTest = myBaseTest.MyBaseTest;
@@ -68,8 +70,34 @@ define('myBt', ['FFF','myBaseTest'], function(FFF,myBaseTest) {
 });
 
 
+//子类有widthSync方法
+//
+define('myBt1', ['FFF','myBaseTest'], function(FFF,myBaseTest) {
+    var F = FFF.FFF;
+    var MyBaseTest = myBaseTest.MyBaseTest;
 
 
+    function MyBt1() {
+        MyBaseTest.apply(this, arguments);
+    }
+
+
+    F.extend(MyBt1, MyBaseTest,{
+        widthSync:function(args){
+            args.testBt = '2222';
+        }
+    });
+
+    return {
+        MyBt1: MyBt1
+    };
+
+});
+
+
+
+
+//子类无widthSync方法
 require(['myBt'], function(myBt) {
 
 
@@ -77,18 +105,48 @@ require(['myBt'], function(myBt) {
     var myBt = new MyBt();
 
 
-    QUnit.test('base-callParent方法测试', function(assert) {
+    QUnit.test('base-callParent方法测试-子类无widthSync方法', function(assert) {
 
         var obj ={};
 
         myBt.widthSync(obj);
 
 
-       assert.equal(obj.testPro,'1234','callParent方法测试');
+        assert.equal(obj.testMe,'1111','子类无widthSync方法');
+       assert.equal(obj.testPro,'1234','子类无widthSync方法');
 
-        assert.equal(obj.testMe,'1111','callParent方法测试');
 
     });
 
 
 });
+
+
+
+require(['myBt1'], function(myBt1) {
+
+
+    var MyBt1 = myBt1.MyBt1;
+    var myBt = new MyBt1();
+
+
+    QUnit.test('base-callParent方法测试-子类无widthSync方法', function(assert) {
+
+        var obj ={};
+
+        myBt.widthSync(obj);
+      
+
+        assert.equal(obj.testMe,undefined,'结果无testMe');
+       assert.equal(obj.testPro,undefined,'结果无testPro');
+       assert.equal(obj.testBt,'2222','结果无testPro');
+
+
+    });
+
+
+});
+
+
+
+
