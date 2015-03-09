@@ -187,7 +187,7 @@ define(['zepto'], function($) {
 
             // Date
             if (type === 'date') {
-                return new Date(obj.getTime());
+                return new Date(item.getTime());
             }
 
             // Array

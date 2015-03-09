@@ -73,46 +73,47 @@ define(['language'], function(language) {
             var delter = 'del' + cName;
             var getFunc, setFunc;
 
-            var cacheVal = attrs[key].value || '';
+            var cacheVal = attrs[key].value;
 
-            if (attrs[key].hasOwnProperty('valueFn')) {
-                cacheVal = attrs[key].valueFn.call(obj);
-            };
-
-            if (attrs[key].hasOwnProperty('changeFn') && obj.on){
-                obj.on(key+'Change',attrs[key].changeFn,obj);
+            if (attrs[key].hasOwnProperty('changeFn') && obj.on) {
+                obj.on(key + 'Change', attrs[key].changeFn, obj);
             }
 
             defineProperty(obj, key, {
                 configurable: true,
                 get: function() {
-                    return cacheVal
+                    if (attrs[key].hasOwnProperty('valueFn')) {
+                        cacheVal = attrs[key].valueFn.call(obj);
+                    }
+                    return cacheVal;
                 },
                 set: function(val) {
                     cacheVal = val;
                 }
             });
 
-            obj[setter] = function(val) {
-                var preValue = obj[getter]();
+            if (!attrs[key].hasOwnProperty('valueFn')) {
+                obj[setter] = function(val) {
+                    var preValue = obj[getter]();
 
-                if (attrs[key].hasOwnProperty('set')) {
-                    var settedValue = attrs[key].set.call(obj,val);
-                    Object.getOwnPropertyDescriptor(obj, key).set(settedValue);
-                }else{
-                    Object.getOwnPropertyDescriptor(obj, key).set(val);
-                }
+                    if (attrs[key].hasOwnProperty('set')) {
+                        var settedValue = attrs[key].set.call(obj, val);
+                        Object.getOwnPropertyDescriptor(obj, key).set(settedValue);
+                    } else {
+                        Object.getOwnPropertyDescriptor(obj, key).set(val);
+                    }
 
-                obj.trigger(key + 'Change', {
-                    value: obj[getter](),
-                    preValue: preValue
-                });
-            };
+                    obj.trigger(key + 'Change', {
+                        value: obj[getter](),
+                        preValue: preValue
+                    });
+                };
+            }
 
             obj[getter] = function() {
                 if (attrs[key].hasOwnProperty('get')) {
-                    return attrs[key].get.call(obj,Object.getOwnPropertyDescriptor(obj, key).get());
-                }else{
+                    return attrs[key].get.call(obj, Object.getOwnPropertyDescriptor(obj, key).get());
+                } else {
                     return Object.getOwnPropertyDescriptor(obj, key).get();
                 }
             };
