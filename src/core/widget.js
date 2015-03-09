@@ -81,7 +81,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             }
             that[key] = null;
         });
-
     }
 
 
