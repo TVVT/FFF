@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>extend 继承方法</title>
+    <script src="../src/lib/require.js"></script>
+    <script src="../src/yhd_mxc.js"></script>
+</head>
+
+<body>
+    <script>
+    require(['FFF'], function(FFF) {
+        var F = FFF.FFF;
+        var Base = F.Base;
+        //父类
+        function Shape() {
+            Base.apply(this, arguments);
+        }
+
+        //新增ATTRS属性
+        Shape.ATTRS = {
+            height: {
+                value: 100
+            },
+            width: {
+                value: 1,
+                changeFn: function(obj) {
+                    console.log(obj);
+                }
+            },
+            rect: {
+                valueFn: function() {
+                    return this.getWidth() * this.getWidth();
+                }
+            }
+        }
+
+        //继承并添加原型方法
+        F.extend(Shape, Base, {
+            render: function() {}
+        });
+
+        //实例话并更改默认值
+        var shape = new Shape({
+            width: 100,
+            otherValue: 'others',
+            height: 100
+        });
+
+        //获得到了更改后的width，因为base类做了默认值修改的功能
+        console.log('width: ' + shape.getWidth());
+        //获得到了面积Rect
+        console.log('rect: ' + shape.getRect());
+
+        shape.setRect(999);
+        console.log(shape.getRect());
+
+        console.log('height: ' + shape.getHeight());
+
+    });
+    </script>
+</body>
+
+</html>
