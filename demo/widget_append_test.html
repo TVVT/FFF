@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>base_attr_test</title>
+	<script src="http://192.168.112.94/fff/lib/require.js"></script>
+	<script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+	<div class="first"></div>
+	<div class="testFlow"></div>
+	<div class="last"></div>
+</body>
+<script>
+	require(['FFF','zepto'],function(FFF,$){
+		var F = FFF.FFF;
+		var Widget = F.Widget;
+
+		function Test(){
+			Widget.apply(this,arguments);
+		}
+
+		Test.ATTRS = {
+			testValue:{
+				value:'test'
+			},
+			boundingBox:{
+				value:$('<div class="test"></div>')
+			}
+		}
+
+		F.extend(Test,Widget,{
+			renderUI:function(){
+				this.getBoundingBox().append($('<a></a>'));
+			}
+		});
+
+		//测试
+		var test = new Test({testValue:'test222',boundingBox:$('<p></p>')});
+		// alert(test.getTestValue())
+		test.render({
+			container:$('.first'),
+			type:'append'
+		});
+
+	})
+</script>
+</html>

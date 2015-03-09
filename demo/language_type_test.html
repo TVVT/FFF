@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>type 判断变量类型</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+    require(['FFF'], function(FFF) {
+        var F = FFF.FFF;
+
+        var str = '1234';
+        console.log(F.type(str));
+
+        var str1 = new String('1234');
+        console.log(F.type(str1));
+
+        var und;
+        console.log(F.type(und));
+
+        var num = 11;
+        console.log(F.type(num));
+
+        var num1 = new Number(1234);
+        console.log(F.type(num1));
+
+        var num1 = new Number(1234);
+        console.log(F.type(num1));
+
+    });
+    </script>
+</body>
+</html>

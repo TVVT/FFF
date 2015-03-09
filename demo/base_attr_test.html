@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>base_attr_test</title>
+	<script src="http://192.168.112.94/fff/lib/require.js"></script>
+	<script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+		
+</body>
+<script>
+	require(['FFF'],function(FFF){
+		var F = FFF.FFF;
+		var Base = F.Base;
+
+		function Test(){
+			Base.apply(this,arguments);
+		}
+
+		Test.ATTRS = {
+			testValue:{
+				value:'test'
+			}
+		}
+
+		F.extend(Test,Base);
+
+		//测试
+		var test = new Test({testValue:'test222'});
+		alert(test.getTestValue());
+
+	})
+</script>
+</html>

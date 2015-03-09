@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>extend 继承方法</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+    require(['FFF'], function(FFF) {
+          var F = FFF.FFF;
+        //父类
+        function Shape() {
+
+        }
+
+        Shape.prototype.render = function(){
+
+        };
+
+        //子类三角形
+        function Triangle() {
+
+        }
+
+        //三角形继承形状
+        //prototype properties to add/override
+        F.extend(Triangle, Shape, {
+            width:100
+        });
+
+        var myTriangle = new Triangle();
+
+        console.dir(myTriangle);
+        console.log(myTriangle instanceof Shape);
+
+    });
+    </script>
+</body>
+</html>

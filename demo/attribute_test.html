@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>extend 继承方法</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+<body>
+    <script>
+    require(['FFF'], function(FFF) {
+          var F = FFF.FFF;
+          var Base = F.Base;
+        //父类
+        function Shape() {
+            Base.apply(this,arguments);
+        }
+
+        //新增ATTRS属性
+        Shape.ATTRS = {
+            width:{
+                value:0
+            },
+            rect:{
+                valueFn:function(){
+                    return this.getWidth()*this.getWidth();
+                }
+            }
+        }
+
+        //继承并添加原型方法
+        F.extend(Shape, Base, {
+            render:function(){
+            }
+        });
+
+        //实例话并更改默认值
+        var shape = new Shape({
+            width:100,
+            otherValue:'others'
+        });
+
+        //获得到了更改后的width
+        console.log('width: '+shape.getWidth());
+        //获得到了面积Rect
+        console.log('width: '+shape.getRect());
+
+    });
+    </script>
+</body>
+</html>
