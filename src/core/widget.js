@@ -31,6 +31,10 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             type: 'append'
         };
 
+        if (!containerObj.hasOwnProperty('type')) {
+            containerObj.type = 'append';
+        };
+
         var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
         var $boundingBox;
         // var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
