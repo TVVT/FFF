@@ -48,7 +48,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             };
         };
 
-
         this.renderUI(obj);
         this.bindUI(obj);
         this.syncUI(obj);
