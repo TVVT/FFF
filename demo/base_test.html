@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>extend 继承方法</title>
     <script src="http://192.168.112.94/fff/lib/require.js"></script>
-    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+    <script src="../src/yhd_mxc.js"></script>
 </head>
 
 <body>
@@ -38,7 +38,10 @@
 
         //继承并添加原型方法
         F.extend(Shape, Base, {
-            render: function() {}
+            render: function() {},
+            initialize:function(){
+                alert(1)
+            }
         });
 
         //实例话并更改默认值
@@ -53,7 +56,7 @@
         //获得到了面积Rect
         console.log('rect: ' + shape.getRect());
 
-        shape.setRect(999);
+        // shape.setRect(999);
         console.log(shape.getRect());
 
         console.log('height: ' + shape.getHeight());

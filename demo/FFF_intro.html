@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>FFF入门</title>
+    <script src="http://192.168.112.94/fff/lib/require.js"></script>
+    <script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+</head>
+
+<body>
+    <script>
+    require(['FFF', 'zepto'], function(FFF,$) {
+
+        var F = FFF.FFF;
+        var Widget = F.Widget;
+
+        function Box() {
+            Widget.apply(this,arguments);
+        }
+        Box.ATTRS = {
+            boundingBox: {
+                value: $('<div class="box"></div>')
+            },
+            width: {
+                value: 100
+            },
+            area: {
+                valueFn: function() {
+                    return this.getWidth() * this.getWidth();
+                }
+            }
+        }
+        F.extend(Box, Widget, {
+            initialize: function() {
+                // this.setWidth(120);
+                console.log(this.getWidth());
+            },
+            renderUI: function(obj) {
+                var that = this;
+                this.getBoundingBox().css({
+                    'background': 'green',
+                    'width':that.getWidth(),
+                    'height':that.getWidth()
+                });
+            },
+            bindUI: function() {
+                var that = this;
+                this.on('widthChange', function(obj) {
+                    alert(obj.value);
+                    that.getBoundingBox().css('width', that.getWidth());
+                    that.getBoundingBox().css('height', that.getWidth());
+                });
+                this.getBoundingBox().on('click', function() {
+                    that.setWidth(that.getWidth() + 1);
+                });
+            },
+            syncUI: function() {
+
+            },
+            destructor: function() {
+                console.log('我准备销毁自己了！');
+            }
+        })
+        var box = new Box({
+            width:123
+        });
+        box.render();
+    });
+    </script>
+</body>
+</html>

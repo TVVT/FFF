@@ -25,7 +25,7 @@ define(['language'], function(language) {
             }
             evtVal.forEach(function(o){
                 o.handler.apply(o.scope, args);
-            })
+            });
         }
         return this;
     };
@@ -42,12 +42,12 @@ define(['language'], function(language) {
             this.__events__[evt].push({
                 handler: handler,
                 scope: scope || this
-            })
+            });
         } else {
             this.__events__[evt] = [{
                 handler: handler,
                 scope: scope || this
-            }]
+            }];
         }
 
         return this;

@@ -5,7 +5,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
 
     function Widget() {
         Base.apply(this, arguments);
-        __initWidget__.apply(this, arguments);
         this.isWidget = true;
         this.opt = arguments[0] || {};
     }
@@ -32,25 +31,29 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             type: 'append'
         };
 
+        if (!containerObj.hasOwnProperty('type')) {
+            containerObj.type = 'append';
+        }
+
         var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
         var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
 
         if (obj && typeof obj == 'object' && obj.hasOwnProperty('container')) {
             $container[containerObj.type]($boundingBox);
-        };
+        }
 
-        if ($boundingBox.parent().length == 0) {
+        if ($boundingBox.parent().length === 0) {
             if (!obj || typeof obj != 'object' || !obj.hasOwnProperty('container')) {
                 $container[containerObj.type]($boundingBox);
-            };
-        };
+            }
+        }
 
         this.renderUI(obj);
         this.bindUI(obj);
         this.syncUI(obj);
 
         return this;
-    }
+    };
 
     Widget.prototype.destory = function() {
         var that = this;
@@ -61,15 +64,15 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 //如果是zepto对象 移除事件并且删除dom
                 if ($.zepto.isZ(value)) {
                     value.off().remove();
-                };
+                }
                 //如果是dom节点 删除dom
                 if (value.nodeType && 'nodeType' in value) {
                     value.parentNode.removeChild(value);
-                };
+                }
                 //如果是Widget实例
                 if (value.isWidget) {
                     value.destory();
-                };
+                }
                 //如果是boundingBox 那么删除Zepto对象
                 if (key == 'getBoundingBox') {
                     if ($.zepto.isZ(value())) {
@@ -77,39 +80,19 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                     } else {
                         $(value()).off().remove();
                     }
-                };
+                }
             }
             that[key] = null;
         });
-
-    }
+    };
 
 
     Widget.ATTRS = {
         boundingBox: {
             value: $('<div class="boundingBox"></div>')
         }
-    }
+    };
 
-    /**
-     * 从父类开始调用所有子类的initialize方法
-     * 这样initialize方法将成为所有控件的入口
-     * TODO:是否每一个initialize都需要传入参数
-     * 目前是都传入的
-     */
-    function __initWidget__() {
-        var initializers = [];
-        var ctx = this;
-
-        do {
-            initializers.push(ctx.initialize);
-            ctx = ctx.superclass || {};
-        } while (ctx.constructor.prototype.hasOwnProperty('initialize'));
-
-        for (var i = initializers.length - 1; i >= 0; i--) {
-            initializers[i].apply(this, arguments);
-        };
-    }
 
     L.extend(Widget, Base);
 
