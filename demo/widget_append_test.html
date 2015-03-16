@@ -25,7 +25,7 @@
 				value:'test'
 			},
 			boundingBox:{
-				value:'.last'
+				value:$('.last')
 			}
 		}
 
@@ -36,7 +36,7 @@
 		});
 
 		//测试
-		var test = new Test({testValue:'test222'});
+		var test = new Test({testValue:'test222',boundingBox:$('.last')});
 		// alert(test.getTestValue())
 		test.render();
 
