@@ -36,12 +36,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
         };
 
         var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
-        var $boundingBox;
-        // var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
-        if (!$.zepto.isZ(this.getBoundingBox())){
-            this.setBoundingBox($(this.getBoundingBox()))
-        };
-        $boundingBox = this.getBoundingBox();
+        var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
 
         if (obj && typeof obj == 'object' && obj.hasOwnProperty('container')) {
             $container[containerObj.type]($boundingBox);
@@ -52,6 +47,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 $container[containerObj.type]($boundingBox);
             };
         };
+
 
         this.renderUI(obj);
         this.bindUI(obj);
