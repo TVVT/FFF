@@ -30,6 +30,6 @@ define(['base', 'language', 'widget'], function (base, language, widget) {
 
     return {
         FFF: F
-    }
+    };
 
-})
+});
