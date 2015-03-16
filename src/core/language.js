@@ -103,7 +103,7 @@ define(['zepto'], function($) {
             });
             return receiver;
         },
-       
+
         type: function(o) {
             return TYPES[typeof o] || TYPES[TOSTRING.call(o)] || (o ? 'object' : 'null');
         },

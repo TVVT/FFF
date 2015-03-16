@@ -31,13 +31,12 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             type: 'append'
         };
 
-        var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
-        var $boundingBox;
-        // var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
-        if (!$.zepto.isZ(this.getBoundingBox())){
-            this.setBoundingBox($(this.getBoundingBox()));
+        if (!containerObj.hasOwnProperty('type')) {
+            containerObj.type = 'append';
         }
-        $boundingBox = this.getBoundingBox();
+
+        var $container = $.zepto.isZ(containerObj.container) ? containerObj.container : $(containerObj.container);
+        var $boundingBox = $.zepto.isZ(this.getBoundingBox()) ? this.getBoundingBox() : $(this.getBoundingBox());
 
         if (obj && typeof obj == 'object' && obj.hasOwnProperty('container')) {
             $container[containerObj.type]($boundingBox);
