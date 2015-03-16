@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>base_attr_test</title>
-	<script src="http://192.168.112.94/fff/lib/require.js"></script>
-	<script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+	<script src="../src/lib/require.js"></script>
+	<script src="../src/yhd_mxc.js"></script>
 </head>
 <body>
 	<div class="first"></div>
@@ -25,7 +25,7 @@
 				value:'test'
 			},
 			boundingBox:{
-				value:$('<div class="test"></div>')
+				value:'.last'
 			}
 		}
 
@@ -36,12 +36,9 @@
 		});
 
 		//测试
-		var test = new Test({testValue:'test222',boundingBox:$('<p></p>')});
+		var test = new Test({testValue:'test222'});
 		// alert(test.getTestValue())
-		test.render({
-			container:$('.first'),
-			type:'append'
-		});
+		test.render();
 
 	})
 </script>

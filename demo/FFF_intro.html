@@ -22,11 +22,7 @@
                 value: $('<div class="box"></div>')
             },
             width: {
-                value: 100,
-                changeFn: function(obj) {
-                    console.log("我之前的宽度是:" + obj.preValue);
-                    console.log("我现在的宽度是:" + obj.value);
-                }
+                value: 100
             },
             area: {
                 valueFn: function() {
@@ -36,9 +32,10 @@
         }
         F.extend(Box, Widget, {
             initialize: function() {
-                this.setWidth(120);
+                // this.setWidth(120);
+                console.log(this.getWidth());
             },
-            renderUI: function() {
+            renderUI: function(obj) {
                 var that = this;
                 this.getBoundingBox().css({
                     'background': 'green',
@@ -48,7 +45,8 @@
             },
             bindUI: function() {
                 var that = this;
-                this.on('widthChange', function() {
+                this.on('widthChange', function(obj) {
+                    alert(obj.value);
                     that.getBoundingBox().css('width', that.getWidth());
                     that.getBoundingBox().css('height', that.getWidth());
                 });
@@ -61,13 +59,11 @@
             },
             destructor: function() {
                 console.log('我准备销毁自己了！');
-            },
-            render: function() {
-                //这里不改写父类的render方法。
-                this.callParent();
             }
         })
-        var box = new Box();
+        var box = new Box({
+            width:123
+        });
         box.render();
     });
     </script>

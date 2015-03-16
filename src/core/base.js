@@ -23,7 +23,6 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
         if(superMethod){
             superMethod.apply(me,arguments)
         }
-   
     };
 
     L.mix(Base.prototype, Attribute.prototype, false);
@@ -31,6 +30,8 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
 
     function __initBase__(){
         var args = arguments[0];
+        var initializers = [];
+        var ctx = this;
         // 重置默认属性以及相关操作
         if (typeof args === 'object') {
             for (key in args) {
@@ -39,6 +40,15 @@ define(['language', 'attribute', 'eventEmitter'], function(language, Attribute, 
                     this['set' + cName](args[key]);
                 };
             }
+        };
+
+        while(ctx.constructor.prototype.hasOwnProperty('initialize')){
+            initializers.push(ctx.initialize);
+            ctx = ctx.superclass || {};
+        }
+
+        for (var i = initializers.length - 1; i >= 0; i--) {
+            initializers[i].apply(this, arguments);
         };
     }
 
