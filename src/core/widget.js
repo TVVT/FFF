@@ -6,7 +6,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     function Widget() {
         Base.apply(this, arguments);
         this.isWidget = true;
-        this.opt = arguments[0] || {};
     }
 
     /**
@@ -60,7 +59,7 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
         that.destructor();
         Object.keys(that).forEach(function(key) {
             var value = that[key];
-            if (value) {
+            if (value !== null) {
                 //如果是zepto对象 移除事件并且删除dom
                 if ($.zepto.isZ(value)) {
                     value.off().remove();
@@ -81,8 +80,8 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                         $(value()).off().remove();
                     }
                 }
+                that[key] = null;
             }
-            that[key] = null;
         });
     };
 

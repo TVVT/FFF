@@ -3,8 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>base_attr_test</title>
-	<script src="http://192.168.112.94/fff/lib/require.js"></script>
-	<script src="http://192.168.112.94/fff/yhd_mxc.js"></script>
+	<script src="../src/lib/require.js"></script>
+	<script src="../src/yhd_mxc.js"></script>
 </head>
 <body>
 	<div class="first"></div>
@@ -31,7 +31,6 @@
 
 		F.extend(Test,Widget,{
 			init:function(){
-
 			},
 			renderUI:function(){
 				this.getBoundingBox().append($('<a></a>'));
@@ -43,11 +42,11 @@
 
 		test.render();
 		
-		console.log(test);
+		// console.log(test);
 		
 		test.destory();
 
-		console.log(test);
+		// console.log(test);
 
 
 	})
