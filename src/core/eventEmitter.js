@@ -65,6 +65,24 @@ define(['language'], function(language) {
         return this;
     };
 
+
+    /**
+     * 销毁 class xx 上的所有全局绑定的事件
+     * @param  {Object} target class实例
+     * @return {Object} 实例对象
+     */
+    EventEmitter.prototype.offLink = function(target) {
+        var events = this.__events__;
+        Object.keys(events).forEach(function(key){
+                events[key].forEach(function(scopeKey,i){
+                        if(scopeKey.scope === target){
+                            events[key].splice(i,1);
+                        }
+                });
+        });
+        return this;
+    };
+
     /**
      * 注销所有事件
      * @return {Object} 实例对象

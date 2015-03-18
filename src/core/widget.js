@@ -71,6 +71,9 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 //如果是Widget实例
                 if (value.isWidget) {
                     value.destory();
+                    if(FFF){
+                        FFF.offLink(value);
+                    }
                 }
                 //如果是boundingBox 那么删除Zepto对象
                 if (key == 'getBoundingBox') {
@@ -83,6 +86,10 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
                 that[key] = null;
             }
         });
+
+        if (FFF) {
+            FFF.offLink(that);
+        }
     };
 
 
