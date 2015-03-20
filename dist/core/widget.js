@@ -6,7 +6,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     function Widget() {
         Base.apply(this, arguments);
         this.isWidget = true;
-        this.opt = arguments[0] || {};
     }
 
     /**
@@ -17,7 +16,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     Widget.prototype.renderUI = function() {};
     Widget.prototype.bindUI = function() {};
     Widget.prototype.syncUI = function() {};
-    Widget.prototype.destructor = function() {};
 
     /**
      * 渲染方法
@@ -54,38 +52,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
 
         return this;
     };
-
-    Widget.prototype.destory = function() {
-        var that = this;
-        that.destructor();
-        Object.keys(that).forEach(function(key) {
-            var value = that[key];
-            if (value) {
-                //如果是zepto对象 移除事件并且删除dom
-                if ($.zepto.isZ(value)) {
-                    value.off().remove();
-                }
-                //如果是dom节点 删除dom
-                if (value.nodeType && 'nodeType' in value) {
-                    value.parentNode.removeChild(value);
-                }
-                //如果是Widget实例
-                if (value.isWidget) {
-                    value.destory();
-                }
-                //如果是boundingBox 那么删除Zepto对象
-                if (key == 'getBoundingBox') {
-                    if ($.zepto.isZ(value())) {
-                        value().off().remove();
-                    } else {
-                        $(value()).off().remove();
-                    }
-                }
-            }
-            that[key] = null;
-        });
-    };
-
 
     Widget.ATTRS = {
         boundingBox: {
