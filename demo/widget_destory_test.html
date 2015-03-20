@@ -41,15 +41,12 @@
 		var test = new Test({testValue:'test222',boundingBox:$('<p></p>')});
 
 		test.render();
-		
-		// console.log(test);
 		F.on('fire',function(){},test);
-		
-		test.destory();
-
-		console.log(test,F);
-
-
+		console.dir(F);
+		setTimeout(function(){
+			test.destory();
+			console.dir(F);
+		},1000)
 	})
 </script>
 </html>

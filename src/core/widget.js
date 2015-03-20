@@ -16,7 +16,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
     Widget.prototype.renderUI = function() {};
     Widget.prototype.bindUI = function() {};
     Widget.prototype.syncUI = function() {};
-    Widget.prototype.destructor = function() {};
 
     /**
      * 渲染方法
@@ -53,7 +52,6 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
 
         return this;
     };
-
 
     Widget.ATTRS = {
         boundingBox: {
