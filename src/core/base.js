@@ -29,7 +29,21 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
 
     Base.prototype.destory = function() {
         var that = this;
+        var thatATTRS = that.constructor.ATTRS || {};
         that.destructor();
+
+        Object.keys(thatATTRS).forEach(function(key) {
+            var cName = key.charAt(0).toUpperCase() + key.substr(1);
+            var setter = 'set' + cName;
+            var getter = 'get' + cName;
+            var delter = 'del' + cName;
+            L.setProp(true, that, key);
+
+            delete that[setter];
+            delete that[getter];
+            delete that[delter];
+        });
+
         Object.keys(that).forEach(function(key) {
             var value = that[key];
             if (value !== null) {
@@ -48,17 +62,19 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
                         FFF.offLink(value);
                     }
                 }
+
                 //如果是boundingBox 那么删除Zepto对象
-                if (key == 'getBoundingBox') {
+                if (key == 'boundingBox'){
                     if ($) {
-                        if ($.zepto.isZ(value())) {
-                            value().off().remove();
+                        if ($.zepto.isZ(value)){
+                            value.off().remove();
                         } else {
-                            $(value()).off().remove();
+                            $(value).off().remove();
                         }
                     }
                 }
                 that[key] = null;
+                delete that[key];
             }
         });
 
