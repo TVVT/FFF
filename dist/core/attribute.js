@@ -42,6 +42,7 @@ define(['language'], function(language) {
         return mixAttrs;
     }
 
+
     /**
      * 添加私有属性
      * @param  {Object} obj 目标Object
@@ -49,21 +50,8 @@ define(['language'], function(language) {
      */
     function addPrivates(obj, attrs) {
 
+        var setProp = L.setProp;
         attrs = L.clone(attrs);
-
-        var defineProperty = ('defineProperty' in Object) ? Object.defineProperty :
-            function(object, name, descriptor) {
-                if (!Object.prototype.__defineGetter__) {
-                    return;
-                }
-                if (descriptor.get) {
-                    object.__defineGetter__(name, descriptor.get);
-                }
-
-                if (descriptor.set) {
-                    object.__defineSetter__(name, descriptor.set);
-                }
-            };
 
         Object.keys(attrs).forEach(function(key) {
 
@@ -71,7 +59,6 @@ define(['language'], function(language) {
             var setter = 'set' + cName;
             var getter = 'get' + cName;
             var delter = 'del' + cName;
-            var getFunc, setFunc;
 
             var cacheVal = attrs[key].value;
 
@@ -79,22 +66,22 @@ define(['language'], function(language) {
                 obj.on(key + 'Change', attrs[key].changeFn, obj);
             }
 
-            defineProperty(obj, key, {
-                configurable: true,
-                get: function() {
-                    if (attrs[key].hasOwnProperty('valueFn')) {
-                        cacheVal = attrs[key].valueFn.call(obj);
-                    }
-                    return cacheVal;
-                },
-                set: function(val) {
-                    cacheVal = val;
-                }
-            });
+
+            setProp(false,obj,key,cacheVal);
 
             if (!attrs[key].hasOwnProperty('valueFn')) {
                 obj[setter] = function(val) {
+
                     var preValue = obj[getter]();
+
+                    setProp(true, obj, key, function() {
+                        if (attrs[key].hasOwnProperty('valueFn')) {
+                            cacheVal = attrs[key].valueFn.call(obj);
+                        }
+                        return cacheVal;
+                    }, function(val) {
+                        cacheVal = val;
+                    });
 
                     if (attrs[key].hasOwnProperty('set')) {
                         var settedValue = attrs[key].set.call(obj, val);
@@ -107,15 +94,31 @@ define(['language'], function(language) {
                         value: obj[getter](),
                         preValue: preValue
                     });
+
+                    setProp(false, obj, key, obj[getter]());
                 };
             }
 
             obj[getter] = function() {
+                var tempVal = '';
+
+                setProp(true, obj, key, function() {
+                    if (attrs[key].hasOwnProperty('valueFn')) {
+                        cacheVal = attrs[key].valueFn.call(obj);
+                    }
+                    return cacheVal;
+                }, function(val) {
+                    cacheVal = val;
+                });
                 if (attrs[key].hasOwnProperty('get')) {
-                    return attrs[key].get.call(obj, Object.getOwnPropertyDescriptor(obj, key).get());
+                    tempVal = attrs[key].get.call(obj, Object.getOwnPropertyDescriptor(obj, key).get());
                 } else {
-                    return Object.getOwnPropertyDescriptor(obj, key).get();
+                    tempVal = Object.getOwnPropertyDescriptor(obj, key).get();
                 }
+
+                setProp(false,obj,key,tempVal);
+
+                return tempVal;
             };
 
             obj[delter] = function() {

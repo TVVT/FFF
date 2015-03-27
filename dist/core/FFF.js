@@ -5,7 +5,7 @@ define(['base', 'language', 'widget'], function (base, language, widget) {
     var Widget = widget.Widget;
 
 
-    var VERSION = '0.1.6';
+    var VERSION = '0.1.2';
 
     function FFF() {
         this.version = VERSION;

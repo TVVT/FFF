@@ -27,7 +27,7 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
 
     Base.prototype.destructor = function() {};
 
-    Base.prototype.destory = function() {
+    Base.prototype.destroy = function() {
         var that = this;
         var thatATTRS = that.constructor.ATTRS || {};
         that.destructor();
@@ -57,7 +57,7 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
                 }
                 //如果是Widget实例
                 if (value.isWidget) {
-                    value.destory();
+                    value.destroy();
                     if (FFF) {
                         FFF.offLink(value);
                     }

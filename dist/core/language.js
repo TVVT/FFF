@@ -150,9 +150,49 @@ define(['zepto'], function($) {
             }
 
             return clone || obj;
+        },
+
+        /**
+         * [setProp 设置属性]
+         * @param {[type]} fMask [是否只读]
+         * @param {[type]} fObj  [目标对象]
+         * @param {[type]} fKey  [需要设置的属性]
+         * @param {[type]} fGet  [get方法]
+         * @param {[type]} fSet  [set方法]
+         */
+        setProp: function(fMask, fObj, fKey, fGet, fSet) {
+            var fDesc = {};
+            if (fMask) {
+                // accessor descriptor
+                if (fGet) {
+                    fDesc.get = fGet;
+                } else {
+                    delete fDesc.get;
+                }
+                if (fSet) {
+                    fDesc.set = fSet;
+                } else {
+                    delete fDesc.set;
+                }
+                delete fDesc.value;
+                delete fDesc.writable;
+            } else {
+                // data descriptor
+                if (arguments.length > 3) {
+                    fDesc.value = fGet;
+                } else {
+                    delete fDesc.value;
+                }
+                fDesc.writable = fMask;
+                delete fDesc.get;
+                delete fDesc.set;
+            }
+            fDesc.enumerable = fMask;
+            fDesc.configurable = true;
+            Object.defineProperty(fObj, fKey, fDesc);
+            return fObj;
         }
     };
-
     return {
         language: language
     };
