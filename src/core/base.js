@@ -13,15 +13,15 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
         __initBase__.apply(this, arguments);
     }
 
-    Base.prototype.callParent = function(){
+    Base.prototype.callParent = function() {
         var me = this;
         var method = this.callParent.caller;
         var parentClass = method.__owner__.superclass;
         var methodName = method.__name__;
         var superMethod = parentClass.prototype[methodName];
 
-        if(superMethod){
-            superMethod.apply(me,arguments);
+        if (superMethod) {
+            superMethod.apply(me, arguments);
         }
     };
 
@@ -58,21 +58,22 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
                 //如果是Widget实例
                 if (value.isWidget) {
                     value.destory();
-                    if(FFF){
+                    if (FFF) {
                         FFF.offLink(value);
                     }
                 }
 
                 //如果是boundingBox 那么删除Zepto对象
-                if (key == 'boundingBox'){
+                if (key == 'boundingBox') {
                     if ($) {
-                        if ($.zepto.isZ(value)){
+                        if ($.zepto.isZ(value)) {
                             value.off().remove();
                         } else {
                             $(value).off().remove();
                         }
                     }
                 }
+
                 that[key] = null;
                 delete that[key];
             }
@@ -89,7 +90,7 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
     L.mix(Base.prototype, Attribute.prototype, false);
     L.mix(Base.prototype, EventEmitter.prototype, false);
 
-    function __initBase__(){
+    function __initBase__() {
         var args = arguments[0];
         var initializers = [];
         var ctx = this;
@@ -104,7 +105,7 @@ define(['language', 'attribute', 'eventEmitter'], function(language, attribute, 
             }
         }
 
-        while(ctx.constructor.prototype.hasOwnProperty('initialize')){
+        while (ctx.constructor.prototype.hasOwnProperty('initialize')) {
             initializers.push(ctx.initialize);
             ctx = ctx.superclass || {};
         }
