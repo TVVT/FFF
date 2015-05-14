@@ -1,2 +1,4 @@
 ./mxc
 .idea
+
+*.DS_Store

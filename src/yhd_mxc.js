@@ -8,6 +8,8 @@ require.config({
         eventEmitter: '../src/core/eventEmitter',
         widget: '../src/core/widget',
         fastclick: '../src/lib/fastclick',
-        template: '../src/lib/template'
+        template: '../src/lib/template',
+        bridge : '../src/util/bridge',
+        h5tonative : '../src/util/H5ToNative'
     }
 });

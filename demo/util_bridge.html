@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>extend 继承方法</title>
+    <script src="../src/lib/require.js"></script>
+    <script src="../src/yhd_mxc.js"></script>
+</head>
+<body>
+    
+    
+
+    <script>
+    require(['FFF','bridge'], function(FFF,bridge) {
+        // console.log(bridge)
+        console.log(bridge)
+
+        bridge.ajax({
+            "type" : "GET",
+            "url" : 'http://10.161.144.23:8090/tsmm/maps/front_loadCachedPage.do',
+            "vansurl" : "mobileservice/getHomePagePromotionList",
+            "data" : {
+                "pageId" : 33,
+                "provinceId" : 1
+            },
+            "success" : function(data){
+                alert(data)
+                console.log(data);
+            }
+        })
+    });
+    </script>
+</body>
+</html>
