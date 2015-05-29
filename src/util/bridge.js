@@ -104,14 +104,24 @@ define(['zepto','h5tonative'], function($,h5tonative) {
 
                 var id = exports._getCallid();
 
-
                 if(options.success){
                     callidObj[id].success = options.success;
                 }
-                
+
+                var paramsArr = [],paramsStr = '';
+
+                if(options.data){
+                    for(var key in data){
+                        paramsArr.push(key + '=' + data[key] );
+                    }
+                    paramsStr = paramsArr.join('&')
+
+                }
+
                 var params = {
                     "callid" : id,
-                    "urlPath" : options.venusUrl
+                    "urlPath" : options.venusUrl,
+                    "params" : paramsStr
                 }
 
                 var paramsStr = JSON.stringify(params);
