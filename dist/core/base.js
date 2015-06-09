@@ -1,4 +1,4 @@
-define(['language', 'attribute', 'eventEmitter'], function(language, attribute, eventEmitter) {
+define(['language', 'attribute', 'eventEmitter', 'zepto'], function(language, attribute, eventEmitter, $) {
 
     var Attribute = attribute.Attribute;
     var EventEmitter = eventEmitter.EventEmitter;
