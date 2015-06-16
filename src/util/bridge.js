@@ -1,4 +1,4 @@
-define(['zepto','h5tonative'], function($,h5tonative) {
+define(['zepto','H5ToNative'], function($,h5tonative) {
     var exports = {};
     var callid = 1;
     var callidObj = {};

@@ -1,0 +1,1 @@
+define(["base","language","widget"],function(e,t,n){function u(){this.version=o,i.apply(this,arguments)}var r=t.language,i=e.Base,s=n.Widget,o="0.1.2";u.STATICS={Language:r,Base:i,Widget:s},r.mix(u.prototype,r),r.extend(u,i,u.STATICS);var a=new u;return window.FFF=a,{FFF:a}});
