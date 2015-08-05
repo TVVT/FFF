@@ -30,8 +30,17 @@
 		}
 
 		F.extend(Test,Widget,{
-			renderUI:function(){
+			renderUI:function(obj,next){
 				this.getBoundingBox().append($('<a></a>'));
+				alert('renderUI')
+				next();
+			},
+			bindUI:function(obj,next){
+				alert('bindUI');
+				next();
+			},
+			syncUI:function(obj){
+				alert('syncUI');
 			}
 		});
 

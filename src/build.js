@@ -1,7 +1,7 @@
 ({
     appDir:"./",
     baseUrl:"./",
-    dir: "../dist/v0.1.2",
+    dir: "../dist/v0.2",
     modules: [{
         name: "FFF.min",
         include: ["FFF","requirejs", "zepto", "base", "attribute", "language", "eventEmitter", "widget"]

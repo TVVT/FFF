@@ -29,6 +29,8 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             type: 'append'
         };
 
+        var self = this;
+
         if (!containerObj.hasOwnProperty('type')) {
             containerObj.type = 'append';
         }
@@ -46,9 +48,11 @@ define(['base', 'language', 'zepto'], function(base, language, $) {
             }
         }
 
-        this.renderUI(obj);
-        this.bindUI(obj);
-        this.syncUI(obj);
+        this.renderUI(obj,function(){
+            self.bindUI(obj,function(){
+                self.syncUI(obj);
+            });
+        });
 
         return this;
     };
